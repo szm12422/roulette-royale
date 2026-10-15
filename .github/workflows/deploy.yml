@@ -34,6 +34,13 @@ jobs:
         run: npm ci
       - name: Verify wheel physics, bets and payouts
         run: npm test
+      - name: Validate Discord application ID
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import { readFileSync } from 'node:fs';
+          assert.equal(readFileSync('.env.production', 'utf8').trim(), `VITE_DISCORD_CLIENT_ID=${process.env.VITE_DISCORD_CLIENT_ID}`);
+          NODE
       - name: Build
         run: npm run build
       - name: Configure GitHub Pages
