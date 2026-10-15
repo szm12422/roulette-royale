@@ -24,7 +24,7 @@ interface HudProps {
   onOpenMenu: () => void
 }
 
-const CAMERA_LABEL: Record<CameraView, string> = { auto: 'Auto', table: 'Table', wheel: 'Wheel', overhead: 'Overhead' }
+const CAMERA_LABEL: Record<CameraView, string> = { auto: '自動', table: 'テーブル', wheel: 'ルーレット', overhead: '俯瞰' }
 
 /** Formats credits with thousands separators, e.g. `1,250`. */
 export function formatCredits(amount: number): string {
@@ -130,8 +130,8 @@ export default function Hud({
   const hoverTip = (() => {
     const hover = hud?.hover
     if (!hover) return null
-    const onIt = hover.amount > 0 ? ` · ${formatCredits(hover.amount)} on it` : ''
-    return `${hover.label} · pays ${hover.payout} to 1${onIt} · limit ${formatCredits(hover.limit)}`
+    const onIt = hover.amount > 0 ? ` · ベット額 ${formatCredits(hover.amount)}` : ''
+    return `${hover.label} · 配当 ${hover.payout}対1${onIt} · 上限 ${formatCredits(hover.limit)}`
   })()
 
   return (
@@ -139,19 +139,19 @@ export default function Hud({
       <div className="hud-top-bar felt-panel">
         <div className="hud-pill-row">
           <div className="hud-pill">
-            <span className="hud-pill-label">Credits</span>
+            <span className="hud-pill-label">クレジット</span>
             <span className="hud-pill-value">{formatCredits(hud?.bankroll ?? 0)}</span>
           </div>
           <div className="hud-pill">
-            <span className="hud-pill-label">Bet</span>
+            <span className="hud-pill-label">ベット</span>
             <span className="hud-pill-value">{formatCredits(hud?.totalBet ?? 0)}</span>
           </div>
           {lastResult && (
             <div className={`hud-pill hud-last-result hud-color-${lastResult.color}`}>
-              <span className="hud-pill-label">Last</span>
+              <span className="hud-pill-label">前回</span>
               <span className="hud-pill-value">
                 {lastResult.net > 0 ? (
-                  <span className="hud-last-win">WIN +{formatCredits(lastResult.net)}</span>
+                  <span className="hud-last-win">勝利 +{formatCredits(lastResult.net)}</span>
                 ) : (
                   lastResult.number
                 )}
@@ -164,7 +164,7 @@ export default function Hud({
           <button
             type="button"
             className="icon-button"
-            aria-label={`Camera view: ${CAMERA_LABEL[cameraView]}. Change view`}
+            aria-label={`カメラ：${CAMERA_LABEL[cameraView]}。表示を切り替え`}
             onClick={onCycleCamera}
           >
             <CameraIcon />
@@ -173,7 +173,7 @@ export default function Hud({
           <button
             type="button"
             className="icon-button"
-            aria-label="Quick spin"
+            aria-label="高速スピン"
             aria-pressed={quickSpin}
             onClick={onToggleQuickSpin}
           >
@@ -182,19 +182,19 @@ export default function Hud({
           <button
             type="button"
             className="icon-button"
-            aria-label={muted ? 'Unmute' : 'Mute'}
+            aria-label={muted ? 'ミュートを解除' : 'ミュート'}
             onClick={onToggleMute}
           >
             {muted ? <MuteIcon /> : <UnmuteIcon />}
           </button>
-          <button type="button" className="icon-button" aria-label="Menu" onClick={onOpenMenu}>
+          <button type="button" className="icon-button" aria-label="メニュー" onClick={onOpenMenu}>
             <MenuIcon />
           </button>
         </div>
       </div>
 
       {history.length > 0 && (
-        <div className="hud-history-strip" aria-label="Recent numbers">
+        <div className="hud-history-strip" aria-label="最近の数字">
           {history.map((n, i) => (
             <span
               key={`${i}-${n}`}
@@ -209,11 +209,11 @@ export default function Hud({
       <div className="hud-bottom-bar felt-panel">
         {hoverTip && <div className="hud-hover-tip">{hoverTip}</div>}
         {!hoverTip && !everPlacedChip && (
-          <div className="hud-hover-tip touch-only">Tap the felt to bet · hold a stack to remove it</div>
+          <div className="hud-hover-tip touch-only">テーブルをタップしてベット · チップを長押しして取り除く</div>
         )}
 
         <div className="hud-bottom-row">
-          <div className="hud-chip-rack" role="radiogroup" aria-label="Chip value">
+          <div className="hud-chip-rack" role="radiogroup" aria-label="チップの額">
             {CHIP_VALUES.map((value) => (
               <button
                 key={value}
@@ -221,7 +221,7 @@ export default function Hud({
                 className={`chip ${CHIP_COLOR[value]}${value === selectedChip ? ' chip-selected' : ''}`}
                 role="radio"
                 aria-checked={value === selectedChip}
-                aria-label={`${value} credit chip`}
+                aria-label={`${value}クレジットのチップ`}
                 onClick={() => onSelectChip(value)}
               >
                 <span className="chip-face">
@@ -233,13 +233,13 @@ export default function Hud({
 
           <div className="hud-action-buttons">
             <button type="button" className="secondary-button" disabled={!hud?.canUndo} onClick={onUndo}>
-              Undo
+              取り消す
             </button>
             <button type="button" className="secondary-button" disabled={!hud?.canClear} onClick={onClearBets}>
-              Clear
+              消去
             </button>
             <button type="button" className="secondary-button" disabled={!hud?.canRebet} onClick={onRebet}>
-              Rebet
+              前回と同じ
             </button>
             <button type="button" className="secondary-button" disabled={!hud?.canDouble} onClick={onDouble}>
               &times;2
@@ -250,7 +250,7 @@ export default function Hud({
               disabled={!hud?.canSpin}
               onClick={onSpin}
             >
-              {spinning ? 'No more bets' : 'Spin'}
+              {spinning ? 'ベット締切' : 'スピン'}
             </button>
           </div>
         </div>
@@ -258,10 +258,10 @@ export default function Hud({
 
       {hud?.broke && (
         <div className="modal-backdrop">
-          <div className="broke-card felt-panel" role="dialog" aria-modal="true" aria-label="Out of credits">
-            <h2 className="broke-title">Out of credits</h2>
+          <div className="broke-card felt-panel" role="dialog" aria-modal="true" aria-label="クレジット不足">
+            <h2 className="broke-title">クレジット不足</h2>
             <button type="button" className="primary-button" onClick={onRefill}>
-              Refill 1,000 credits
+              1,000クレジットを補充
             </button>
           </div>
         </div>

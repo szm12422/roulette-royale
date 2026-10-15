@@ -1,5 +1,11 @@
 # Changelog
 
+## Discordアクティビティ対応
+
+- Discord内で接続後に起動。接続・描画失敗時の再読み込み画面を追加。
+- スマホメニューの縦スクロールを修正。
+- メニュー・操作表示の日本語化と日本語フォントの同梱。
+
 All notable changes to Roulette Royale are documented in this file, following the [Keep a Changelog](https://keepachangelog.com/) format.
 
 ## [1.3.0] - 2026-09-26

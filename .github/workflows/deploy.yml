@@ -17,6 +17,8 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      VITE_DISCORD_CLIENT_ID: '1560075138634874890'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

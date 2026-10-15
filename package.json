@@ -12,6 +12,8 @@
     "simulate": "node --experimental-strip-types scripts/simulate.ts"
   },
   "dependencies": {
+    "@discord/embedded-app-sdk": "2.5.0",
+    "@fontsource/noto-sans-jp": "5.3.1",
     "react": "^19.3.0",
     "react-dom": "^19.3.0",
     "three": "^0.186.0"

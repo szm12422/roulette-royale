@@ -109,3 +109,8 @@ Vite is configured with a relative `base` in `vite.config.ts`, so the built asse
 ## License
 
 [MIT](LICENSE)
+
+
+## Discordアクティビティ版
+
+Discord SDK接続、スマホ・PC操作、日本語UI用の自己ホストフォントを追加しています。このリポジトリの公開Application IDはビルド時に設定済みです。設定・操作・実機確認は同梱の [導入手順](DISCORD_ACTIVITY.md) を参照してください。

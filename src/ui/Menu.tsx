@@ -18,34 +18,34 @@ interface MenuProps {
   onResetCredits: () => void
 }
 
-const CAMERA_LABEL: Record<CameraView, string> = { auto: 'Auto', table: 'Table', wheel: 'Wheel', overhead: 'Overhead' }
+const CAMERA_LABEL: Record<CameraView, string> = { auto: '自動', table: 'テーブル', wheel: 'ルーレット', overhead: '俯瞰' }
 
 /** One row of the payout table, grouping the outside bets that all pay the same 1 to 1. */
 const PAYOUT_ROWS: { kind: BetKind; label: string }[] = [
-  { kind: 'straight', label: 'Straight up · one number' },
-  { kind: 'split', label: 'Split · two numbers' },
-  { kind: 'street', label: 'Street · three numbers' },
-  { kind: 'trio', label: 'Trio · 0 and two numbers' },
-  { kind: 'corner', label: 'Corner · four numbers' },
-  { kind: 'firstFour', label: 'First four · 0, 1, 2, 3' },
-  { kind: 'sixLine', label: 'Six line · six numbers' },
-  { kind: 'column', label: 'Column · 12 numbers' },
-  { kind: 'dozen', label: 'Dozen · 12 numbers' },
-  { kind: 'red', label: 'Red, Black, Odd, Even, 1-18, 19-36' },
+  { kind: 'straight', label: 'ストレート · 1つの数字' },
+  { kind: 'split', label: 'スプリット · 2つの数字' },
+  { kind: 'street', label: 'ストリート · 3つの数字' },
+  { kind: 'trio', label: 'トリオ · 0と2つの数字' },
+  { kind: 'corner', label: 'コーナー · 4つの数字' },
+  { kind: 'firstFour', label: 'ファーストフォー · 0、1、2、3' },
+  { kind: 'sixLine', label: 'シックスライン · 6つの数字' },
+  { kind: 'column', label: '列 · 12の数字' },
+  { kind: 'dozen', label: 'ダズン · 12の数字' },
+  { kind: 'red', label: '赤・黒、奇数・偶数、1～18・19～36' },
 ]
 
 /** One row of the keyboard legend, matching the bindings in `App.tsx`. */
 const KEYBOARD_LEGEND: { label: string; keys: string }[] = [
-  { label: 'Spin', keys: 'Space / Enter' },
-  { label: 'Chip value', keys: '1 – 5' },
-  { label: 'Undo', keys: 'Z / Backspace' },
-  { label: 'Clear bets', keys: 'X / Delete' },
-  { label: 'Rebet', keys: 'R' },
-  { label: 'Double', keys: 'D' },
-  { label: 'Camera', keys: 'C' },
-  { label: 'Quick spin', keys: 'Q' },
-  { label: 'Mute', keys: 'M' },
-  { label: 'Menu', keys: 'Esc' },
+  { label: 'スピン', keys: 'Space / Enter' },
+  { label: 'チップの額', keys: '1 – 5' },
+  { label: '取り消す', keys: 'Z / Backspace' },
+  { label: 'ベットを消す', keys: 'X / Delete' },
+  { label: '前回と同じベット', keys: 'R' },
+  { label: 'ベットを倍にする', keys: 'D' },
+  { label: 'カメラ', keys: 'C' },
+  { label: '高速スピン', keys: 'Q' },
+  { label: 'ミュート', keys: 'M' },
+  { label: 'メニュー', keys: 'Esc' },
 ]
 
 function MuteIcon() {
@@ -110,10 +110,10 @@ export default function Menu({
             <h1 className="menu-title">Roulette Royale</h1>
           </div>
         </div>
-        <p className="menu-tagline">European single-zero roulette</p>
+        <p className="menu-tagline">ヨーロピアンルーレット（ゼロは1つ）</p>
 
         <button type="button" className="primary-button play-button" onClick={onPlay}>
-          {hasSave ? `Continue — ${formatCredits(savedBankroll)} credits` : 'Play'}
+          {hasSave ? `続きから — ${formatCredits(savedBankroll)} クレジット` : 'プレイ'}
         </button>
 
         <section className="panel-section">
@@ -123,24 +123,24 @@ export default function Menu({
             aria-expanded={howToOpen}
             onClick={() => setHowToOpen((open) => !open)}
           >
-            How to play {howToOpen ? '−' : '+'}
+            遊び方 {howToOpen ? '−' : '+'}
           </button>
           {howToOpen && (
             <div className="how-to-body">
               <p className="how-to-line">
-                Place chips by tapping or clicking the felt. Right-click or hold a stack to remove it.
+                テーブルをタップまたはクリックしてチップを置きます。右クリックまたはチップの長押しで取り除けます。
               </p>
               <table className="payout-table">
                 <tbody>
                   {PAYOUT_ROWS.map((row) => (
                     <tr key={row.kind}>
                       <td className="payout-label">{row.label}</td>
-                      <td className="payout-value">{PAYOUTS[row.kind]} to 1</td>
+                      <td className="payout-value">{PAYOUTS[row.kind]}対1</td>
                     </tr>
                   ))}
                 </tbody>
               </table>
-              <p className="how-to-line">House edge: 2.7%.</p>
+              <p className="how-to-line">ハウスエッジ：2.7%</p>
               <dl className="legend-list pointer-only">
                 {KEYBOARD_LEGEND.map((row) => (
                   <div className="legend-row" key={row.label}>
@@ -153,34 +153,34 @@ export default function Menu({
           )}
         </section>
 
-        <section className="panel-section" aria-label="Settings">
-          <h2 className="panel-heading">Settings</h2>
+        <section className="panel-section" aria-label="設定">
+          <h2 className="panel-heading">設定</h2>
           <div className="settings-row">
-            <span className="settings-label">Quick spin</span>
+            <span className="settings-label">高速スピン</span>
             <button
               type="button"
               className="toggle-switch"
               role="switch"
               aria-checked={quickSpin}
-              aria-label="Quick spin"
+              aria-label="高速スピン"
               onClick={onToggleQuickSpin}
             >
               <span className="toggle-knob" />
             </button>
           </div>
           <div className="settings-row">
-            <span className="settings-label">Sound</span>
+            <span className="settings-label">サウンド</span>
             <button
               type="button"
               className="icon-button"
-              aria-label={muted ? 'Unmute' : 'Mute'}
+              aria-label={muted ? 'ミュートを解除' : 'ミュート'}
               onClick={onToggleMute}
             >
               {muted ? <MuteIcon /> : <UnmuteIcon />}
             </button>
           </div>
           <div className="settings-row">
-            <span className="settings-label">Camera</span>
+            <span className="settings-label">カメラ</span>
             <button type="button" className="secondary-button settings-camera" onClick={onCycleCamera}>
               {CAMERA_LABEL[cameraView]}
             </button>
@@ -190,22 +190,22 @@ export default function Menu({
         <section className="panel-section">
           {confirmingReset ? (
             <div className="reset-confirm-row">
-              <span className="settings-label">Reset to 1,000 credits?</span>
+              <span className="settings-label">1,000クレジットにリセットしますか？</span>
               <button type="button" className="secondary-button" onClick={handleResetClick}>
-                Confirm
+                確認
               </button>
               <button type="button" className="secondary-button" onClick={() => setConfirmingReset(false)}>
-                Cancel
+                キャンセル
               </button>
             </div>
           ) : (
             <button type="button" className="secondary-button" onClick={handleResetClick}>
-              Reset credits
+              クレジットをリセット
             </button>
           )}
         </section>
 
-        <p className="menu-footer">Play credits only — no real money, no purchases.</p>
+        <p className="menu-footer">ゲーム内クレジット専用です。現金や課金はありません。</p>
       </div>
     </div>
   )

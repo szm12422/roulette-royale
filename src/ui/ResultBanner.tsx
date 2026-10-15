@@ -51,14 +51,14 @@ export default function ResultBanner({ hud, message }: ResultBannerProps) {
           aria-hidden={!visible}
         >
           <span className="result-disc">{result.number}</span>
-          <span className="result-color-label">{result.color.toUpperCase()}</span>
+          <span className="result-color-label">{{ red: '赤', black: '黒', green: '緑' }[result.color]}</span>
           {win ? (
-            <span className="result-win-line">YOU WIN {formatCredits(result.net)}</span>
+            <span className="result-win-line">勝利 {formatCredits(result.net)}</span>
           ) : result.returned > 0 ? (
             // Some bets won but no more than was staked: show what came back, not "no win".
-            <span className="result-nowin-line">PAID {formatCredits(result.returned)}</span>
+            <span className="result-nowin-line">払い戻し {formatCredits(result.returned)}</span>
           ) : (
-            <span className="result-nowin-line">NO WIN</span>
+            <span className="result-nowin-line">当たりなし</span>
           )}
         </div>
       )}

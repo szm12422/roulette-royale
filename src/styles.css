@@ -30,8 +30,8 @@
   --radius-md: 16px;
   --radius-lg: 24px;
 
-  --font-display: 'Bodoni 72', Didot, 'Playfair Display', Georgia, serif;
-  --font-body: 'Avenir Next', 'Segoe UI', system-ui, sans-serif;
+  --font-display: 'Bodoni 72', Didot, 'Playfair Display', Georgia, 'Noto Sans JP', serif;
+  --font-body: 'Avenir Next', 'Segoe UI', 'Noto Sans JP', system-ui, sans-serif;
 
   --shadow-panel: 0 20px 60px rgba(0, 0, 0, 0.65);
   --glow-gold: 0 0 10px rgba(212, 175, 55, 0.5), 0 0 26px rgba(212, 175, 55, 0.25);
@@ -89,6 +89,7 @@ button {
 
 .game-canvas {
   position: fixed;
+  z-index: 0;
   inset: 0;
   width: 100%;
   height: 100%;
@@ -101,12 +102,13 @@ button {
   position: relative;
   width: 100%;
   height: 100%;
-  touch-action: none;
+  touch-action: pan-y;
   user-select: none;
 }
 
 .overlay-layer {
   position: fixed;
+  z-index: 10;
   inset: 0;
   pointer-events: none;
   padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom)
@@ -323,6 +325,7 @@ button {
 
 .menu-panel {
   pointer-events: auto;
+  touch-action: pan-y;
   width: 100%;
   max-width: 430px;
   height: 100%;
